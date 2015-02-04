@@ -6,7 +6,9 @@ import java.awt.Color;
 public class TestIHM {
 	
 	public static void main(String[] args) {		
-		Invaders invaders = new Invaders();
+//		Invaders invaders = new Invaders();
+		Simulateur test = new Simulateur("cartes/large.map");
+		test.next();
 	}
 }
 
