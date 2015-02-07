@@ -1,13 +1,17 @@
 package main;
-import ihm.*;
+import ihm.IGSimulateur;
+import ihm.MapIndexOutOfBoundsException;
+import ihm.Simulable;
 
 import java.awt.Color;
+
+import view.Simulateur;
 
 public class TestIHM {
 	
 	public static void main(String[] args) {		
 //		Invaders invaders = new Invaders();
-		Simulateur test = new Simulateur("cartes/large.map");
+		Simulateur test = new Simulateur("cartes/problem.map");
 		test.next();
 	}
 }
