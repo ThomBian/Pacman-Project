@@ -11,7 +11,7 @@ public class Board {
 	
 	private int height, width;
 	
-	private Character[][] board;
+	private Content[][] board;
 
 	/**
 	 * 
@@ -19,21 +19,28 @@ public class Board {
 	public Board(int height, int width) {
 		this.height = height;
 		this.width = width;
-		board = new Character[height][width];
+		board = new Content[height][width];
 	}
 	
 	public void set(int row, int col, char data) {
 		if(row >= height || col >= width) {
 			throw new IllegalArgumentException();
 		}
-		board[row][col] = data;
+		board[row][col] = Content.fromChar(data);
+	}
+	
+	public Content get(int row, int col) {
+	    if(row >= height || col >= width) {
+            throw new IllegalArgumentException();
+        }
+	    return board[row][col];
 	}
 
-	public Character[][] getBoard() {
+	public Content[][] getBoard() {
 		return board;
 	}
 
-	public void setBoard(Character[][] board) {
+	public void setBoard(Content[][] board) {
 		this.board = board;
 	}
 
