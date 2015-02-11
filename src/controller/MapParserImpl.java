@@ -32,6 +32,8 @@ public enum MapParserImpl implements IMapParser {
 				}
 				reader.close();
 				model.setGameBoard(board);
+				model.setNbColomns(board.getWidth());
+				model.setNbLines(board.getHeight());
 				return model;
 			}
 			reader.close();
