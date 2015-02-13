@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import controller.IStratetgy;
+import controller.StrategyImpl;
 import errors.ErrorDisplay;
 
 /**
@@ -21,6 +23,7 @@ public class ModeleImpl implements IModele {
 	private List<Entity> persos;
 	private Board gameBoard;
 	private Board initBoard;
+	private PacMan pacman;
 	
 	public ModeleImpl(String path) {
 		persos = new ArrayList<Entity>();
@@ -63,6 +66,13 @@ public class ModeleImpl implements IModele {
 
 	private void treatLine(String toTreat, int curLine) {
 		for (int i = 0; i < toTreat.length(); ++i) {
+		    if (toTreat.charAt(i) == 'P') {
+		        Tile tile = new Tile();
+		        tile.setX(i);
+		        tile.setY(curLine);
+		        tile.setContent(Content.PACMAN);
+		        pacman = new PacMan(tile);
+		    }
 			this.initBoard.set(curLine, i, toTreat.charAt(i));
 		}
 	}
@@ -97,11 +107,8 @@ public class ModeleImpl implements IModele {
 	@Override
 	public Tile deplacePacman() {
 		System.out.println("PACMAN BOUGE");
-		Tile newTile = new Tile();
-		newTile.setX(0);
-		newTile.setY(1);
-		//Tile newTile = Pacman.move()
-		return newTile;
+		IStratetgy strat = StrategyImpl.RANDOM;
+		return strat.move(pacman.getTile(), gameBoard);
 	}
 
 	/*
@@ -131,7 +138,7 @@ public class ModeleImpl implements IModele {
 	 * @see view.IModele#getBoardGameLength()
 	 */
 	@Override
-	public int getBoardGameLength() {
+	public int getBoardGameWidth() {
 		return this.gameBoard.getWidth();
 	}
 
@@ -144,5 +151,14 @@ public class ModeleImpl implements IModele {
 	public Board getInitBoard() {
 		return this.initBoard;
 	}
+
+    
+    /**
+     * @return the pacman
+     */
+    public PacMan getPacman() {
+    
+        return pacman;
+    }
 
 }

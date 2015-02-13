@@ -32,7 +32,7 @@ public class Vue implements Simulable{
 	}
 	
 	public void creerVue (){
-		setIhm(new IGSimulateur(this.modele.getBoardGameHeight(), this.modele.getBoardGameLength(), this));
+		setIhm(new IGSimulateur(this.modele.getBoardGameHeight(), this.modele.getBoardGameWidth(), this));
 	}
 
 	public IGSimulateur getIhm() {
@@ -85,7 +85,7 @@ public class Vue implements Simulable{
 		}
 	}
 
-	private void drawSpace(int x, int y) {
+	public void drawSpace(int x, int y) {
 		try {
 			ihm.paintBox(x, y, Color.WHITE);
 		} catch (MapIndexOutOfBoundsException e) {

@@ -10,7 +10,8 @@ public interface IModele {
 	public Tile deplacePacman();
 	public void deplaceGhost();
 	public int getBoardGameHeight();
-	public int getBoardGameLength();
+	public int getBoardGameWidth();
 	public Board getBoard();
 	public Board getInitBoard();
+	public PacMan getPacman();
 }

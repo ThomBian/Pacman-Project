@@ -6,5 +6,15 @@ package model;
  *
  */
 public enum Direction {
-	NORTH, SOUTH, EAST, WEST
+	NORTH(1), SOUTH(3), EAST(2), WEST(0);
+	
+	private int val;
+	
+	Direction (int val) {
+	    this.val = val;
+	}
+	
+	public int val (){
+	    return this.val;
+	}
 }

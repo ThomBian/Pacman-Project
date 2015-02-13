@@ -3,6 +3,7 @@
  */
 package controller;
 
+import model.Content;
 import model.IModele;
 import model.Tile;
 import view.Vue;
@@ -33,8 +34,11 @@ public class ControllerImpl implements IControleur {
 	 */
 	@Override
 	public void update() {
+	    Tile tile = this.model.getPacman().getTile();
 		Tile newTilePM = this.model.deplacePacman();
+		this.model.getPacman().setTile(newTilePM);
 		vue.drawPacMan(newTilePM.getX(), newTilePM.getY());
+		vue.drawSpace(tile.getX(), tile.getY());
 	}
 
 	/* (non-Javadoc)

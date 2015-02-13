@@ -9,11 +9,33 @@ package model;
  */
 public class PacMan extends Entity {
 
-	/**
+	private Tile tile;
+
+    /**
 	 * 
 	 */
-	public PacMan() {
-		// TODO Auto-generated constructor stub
+	public PacMan(Tile tile) {
+	    this.tile = tile;
 	}
 
+    
+    /**
+     * @return the tile
+     */
+    public Tile getTile() {
+    
+        return tile;
+    }
+
+
+    
+    /**
+     * @param tile the tile to set
+     */
+    public void setTile(Tile tile) {
+    
+        this.tile = tile;
+    }
+	
+	
 }
