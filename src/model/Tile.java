@@ -10,7 +10,9 @@ package model;
 public class Tile {
 	
 	protected Content content;
-
+	protected int x;
+	protected int y;
+	
 	/**
 	 * 
 	 */
@@ -24,6 +26,28 @@ public class Tile {
 
 	public void setContent(Content content) {
 		this.content = content;
+	}
+
+	public void setX(int i) {
+		this.x = i;
+	}
+	
+	public void setY (int y){
+		this.y = y;
+	}
+
+	/**
+	 * @return the x
+	 */
+	public int getX() {
+		return x;
+	}
+
+	/**
+	 * @return the y
+	 */
+	public int getY() {
+		return y;
 	}
 
 }
