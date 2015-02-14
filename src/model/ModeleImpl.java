@@ -106,9 +106,8 @@ public class ModeleImpl implements IModele {
 	 */
 	@Override
 	public Tile deplacePacman() {
-		System.out.println("PACMAN BOUGE");
 		IStratetgy strat = StrategyImpl.RANDOM;
-		return strat.move(pacman.getTile(), gameBoard);
+		return strat.move(pacman.getPosition (), gameBoard);
 	}
 
 	/*
@@ -157,8 +156,20 @@ public class ModeleImpl implements IModele {
      * @return the pacman
      */
     public PacMan getPacman() {
-    
         return pacman;
     }
 
+	@Override
+	
+	
+	/**
+	 * Cette méthode met à jour la gameBoard aprés un déplacement
+	 */
+	public void updateBoard(PacMan p, Tile t) {
+		Tile entityPos = p.getPosition();
+		gameBoard.set(entityPos.getY(), entityPos.getX(), p.getRef());
+		gameBoard.set(t.getY(), t.getX(), Content.EMPTY.val());
+	}
+    
+    
 }

@@ -36,7 +36,7 @@ public class Board {
     }
     
 
-    public Content[] getSurrounding(int row, int col) {
+    public Content[] getSurrounding(int col, int row) {
 
         if (row >= height || col >= width) { throw new IllegalArgumentException(); }
         Content[] tab = new Content[4]; // gauche/haut/droite/bas

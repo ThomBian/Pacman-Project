@@ -9,33 +9,12 @@ package model;
  */
 public class PacMan extends Entity {
 
-	private Tile tile;
-
-    /**
+	/**
 	 * 
 	 */
 	public PacMan(Tile tile) {
-	    this.tile = tile;
+	    this.position = tile;
+	    this.ref = Content.PACMAN.val();
 	}
-
-    
-    /**
-     * @return the tile
-     */
-    public Tile getTile() {
-    
-        return tile;
-    }
-
-
-    
-    /**
-     * @param tile the tile to set
-     */
-    public void setTile(Tile tile) {
-    
-        this.tile = tile;
-    }
-	
 	
 }

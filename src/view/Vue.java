@@ -17,7 +17,6 @@ public class Vue implements Simulable{
 	
 	@Override
 	public void next() {
-		System.out.println("LELELELLEELLELELLELELELELELLE");
 		controller.update();
 	}
 

@@ -20,10 +20,10 @@ public enum StrategyImpl
     RANDOM {
 
         public Tile move(Tile tile, Board board) {
-
             Content[] tab = board.getSurrounding(tile.getX(), tile.getY());
             while (true) {
-                int dir = (new Random()).nextInt(3);
+                int dir = (new Random()).nextInt(4-0)+0;
+                System.out.println(dir);
                 Tile cont = new Tile();
                 switch (dir) {
                     case 0:
@@ -49,7 +49,7 @@ public enum StrategyImpl
                     default:
                         continue;
                 }
-                if (cont.getContent() != null || cont.getContent() != Content.WALL ||
+                if (cont.getContent() != null && cont.getContent() != Content.WALL &&
                     cont.getContent() != Content.GHOST) { return cont; }
             }
         }

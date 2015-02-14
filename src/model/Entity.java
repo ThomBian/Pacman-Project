@@ -10,10 +10,8 @@ package model;
 public abstract class Entity {
 	
 	protected Tile position;
-
-	/**
-	 * 
-	 */
+	protected char ref;
+	
 	public Entity() {
 	}
 
@@ -23,6 +21,10 @@ public abstract class Entity {
 
 	public void setPosition(Tile position) {
 		this.position = position;
+	}
+	
+	public char getRef(){
+		return ref;
 	}
 
 }

@@ -34,11 +34,12 @@ public class ControllerImpl implements IControleur {
 	 */
 	@Override
 	public void update() {
-	    Tile tile = this.model.getPacman().getTile();
+	    Tile tile = this.model.getPacman().getPosition();
 		Tile newTilePM = this.model.deplacePacman();
-		this.model.getPacman().setTile(newTilePM);
+		this.model.getPacman().setPosition(newTilePM);
 		vue.drawPacMan(newTilePM.getX(), newTilePM.getY());
 		vue.drawSpace(tile.getX(), tile.getY());
+		this.model.updateBoard(this.model.getPacman(), tile);
 	}
 
 	/* (non-Javadoc)

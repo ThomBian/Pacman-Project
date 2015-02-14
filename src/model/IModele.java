@@ -14,4 +14,5 @@ public interface IModele {
 	public Board getBoard();
 	public Board getInitBoard();
 	public PacMan getPacman();
+	public void updateBoard(PacMan e, Tile t);
 }
