@@ -14,7 +14,7 @@ public class PacMan extends Entity {
 	 */
 	public PacMan(Tile tile) {
 	    this.position = tile;
-	    this.ref = Content.PACMAN.val();
+	    this.ref = Content.PACMAN;
 	}
 	
 }

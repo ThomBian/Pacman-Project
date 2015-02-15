@@ -1,18 +1,50 @@
 package model;
 
+import java.util.Collection;
+
 
 
 public interface IModele {
 	
-	public void initialiser(String map);
-	public void restart();
-	public void detruire();
-	public Tile deplacePacman();
-	public void deplaceGhost();
+	/**
+	 * Initialise le model
+	 * @param map
+	 */
+	public void init(String map);
+	
+	
+	/**
+	 * clear the model
+	 */
+	public void remove();
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public Tile movePacman();
+	
+	/**
+	 * 
+	 * @param idx
+	 * @return
+	 */
+	public Tile moveGhost(int idx);
+	
+	/* Setter and getter */
 	public int getBoardGameHeight();
 	public int getBoardGameWidth();
 	public Board getBoard();
 	public Board getInitBoard();
 	public PacMan getPacman();
-	public void updateBoard(PacMan e, Tile t);
+	public Collection getPersos();
+	public String getMap();
+	/**
+	 * update the model data
+	 * @param e
+	 * @param t
+	 */
+	public void updateEntityPosition(Entity e, Tile t);
+	
+	public void restartModel();
 }

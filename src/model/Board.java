@@ -23,10 +23,10 @@ public class Board {
         board = new Content[height][width];
     }
 
-    public void set(int row, int col, char data) {
+    public void set(int row, int col, Content content) {
 
         if (row >= height || col >= width) { throw new IllegalArgumentException(); }
-        board[row][col] = Content.fromChar(data);
+        board[row][col] = content;
     }
 
     public Content get(int row, int col) {

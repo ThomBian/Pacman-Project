@@ -10,7 +10,7 @@ package model;
 public abstract class Entity {
 	
 	protected Tile position;
-	protected char ref;
+	protected Content ref;
 	
 	public Entity() {
 	}
@@ -23,7 +23,7 @@ public abstract class Entity {
 		this.position = position;
 	}
 	
-	public char getRef(){
+	public Content getRef(){
 		return ref;
 	}
 

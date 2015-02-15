@@ -19,6 +19,19 @@ public class Tile {
 	public Tile() {
 		content = Content.EMPTY;
 	}
+	
+	/**
+	 * @param content
+	 * @param x
+	 * @param y
+	 */
+	public Tile(Content content, int x, int y) {
+		super();
+		this.content = content;
+		this.x = x;
+		this.y = y;
+	}
+
 
 	public Content getContent() {
 		return content;

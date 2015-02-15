@@ -46,12 +46,12 @@ public class Vue implements Simulable{
 		for (int i = 0; i < board.getHeight(); i++){
 			for (int j = 0; j < board.getWidth(); j++) {
 				Content cur = board.get(i, j);
-				processChar(cur.val(), j, i);
+				drawChar(cur.val(), j, i);
 			}
 		}
 	}
 
-	private void processChar(char val, int col, int row) {
+	public void drawChar(char val, int col, int row) {
 		switch (val) {
 		case '#':
 			drawWall(col, row);

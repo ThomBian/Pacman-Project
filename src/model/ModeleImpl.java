@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import controller.IStratetgy;
@@ -24,10 +25,11 @@ public class ModeleImpl implements IModele {
 	private Board gameBoard;
 	private Board initBoard;
 	private PacMan pacman;
-	
+	private String map;
+
 	public ModeleImpl(String path) {
-		persos = new ArrayList<Entity>();
-		initialiser(path);
+		this.map = path;
+		init(path);
 	}
 
 	/*
@@ -36,7 +38,8 @@ public class ModeleImpl implements IModele {
 	 * @see view.IModele#initialiser()
 	 */
 	@Override
-	public void initialiser(String path) {
+	public void init(String path) {
+		persos = new ArrayList<Entity>();
 		try {
 			parse(path);
 		} catch (IOException | ErrorDisplay e) {
@@ -44,8 +47,8 @@ public class ModeleImpl implements IModele {
 		}
 	}
 
-	public void parse(String path) throws IOException,
-			FileNotFoundException, ErrorDisplay {
+	public void parse(String path) throws IOException, FileNotFoundException,
+			ErrorDisplay {
 
 		BufferedReader reader = new BufferedReader(new FileReader(path));
 		String line = reader.readLine();
@@ -66,27 +69,20 @@ public class ModeleImpl implements IModele {
 
 	private void treatLine(String toTreat, int curLine) {
 		for (int i = 0; i < toTreat.length(); ++i) {
-		    if (toTreat.charAt(i) == 'P') {
-		        Tile tile = new Tile();
-		        tile.setX(i);
-		        tile.setY(curLine);
-		        tile.setContent(Content.PACMAN);
-		        pacman = new PacMan(tile);
-		    }
-			this.initBoard.set(curLine, i, toTreat.charAt(i));
+			if (toTreat.charAt(i) == 'P') {
+				Tile tile = new Tile(Content.PACMAN, i, curLine);
+				pacman = new PacMan(tile);
+			}
+			if (toTreat.charAt(i) == 'F'){
+				Tile tile = new Tile(Content.GHOST, i, curLine);
+				Entity g = new Ghost();
+				g.position = tile;
+				persos.add(g);
+			}
+			this.initBoard.set(curLine, i, Content.fromChar(toTreat.charAt(i)));
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see view.IModele#restart()
-	 */
-	@Override
-	public void restart() {
-		// TODO Auto-generated method stub
-
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -94,9 +90,11 @@ public class ModeleImpl implements IModele {
 	 * @see view.IModele#detruire()
 	 */
 	@Override
-	public void detruire() {
-		// TODO Auto-generated method stub
-
+	public void remove() {
+		persos = null;
+		pacman = null;
+		initBoard = null;
+		gameBoard = null;
 	}
 
 	/*
@@ -105,9 +103,9 @@ public class ModeleImpl implements IModele {
 	 * @see view.IModele#deplacePacman()
 	 */
 	@Override
-	public Tile deplacePacman() {
-		IStratetgy strat = StrategyImpl.RANDOM;
-		return strat.move(pacman.getPosition (), gameBoard);
+	public Tile movePacman() {
+		IStratetgy strat = StrategyImpl.RANDOM_PAC;
+		return strat.move(pacman.getPosition(), gameBoard);
 	}
 
 	/*
@@ -116,8 +114,10 @@ public class ModeleImpl implements IModele {
 	 * @see view.IModele#deplaceGhost()
 	 */
 	@Override
-	public void deplaceGhost() {
-		System.out.println("GHOST BOUGE");
+	public Tile moveGhost(int idx) {
+		IStratetgy strat = StrategyImpl.RANDOM_GHOST;
+		return strat.move(persos.get(idx).getPosition(), gameBoard);
+		
 	}
 
 	/*
@@ -127,7 +127,6 @@ public class ModeleImpl implements IModele {
 	 */
 	@Override
 	public int getBoardGameHeight() {
-		// TODO Auto-generated method stub
 		return this.gameBoard.getHeight();
 	}
 
@@ -151,25 +150,39 @@ public class ModeleImpl implements IModele {
 		return this.initBoard;
 	}
 
-    
-    /**
-     * @return the pacman
-     */
-    public PacMan getPacman() {
-        return pacman;
-    }
+	/**
+	 * @return the pacman
+	 */
+	public PacMan getPacman() {
+		return pacman;
+	}
 
 	@Override
-	
-	
 	/**
-	 * Cette méthode met à jour la gameBoard aprés un déplacement
+	 * Cette méthode met à jour la position d'un personnage
 	 */
-	public void updateBoard(PacMan p, Tile t) {
-		Tile entityPos = p.getPosition();
-		gameBoard.set(entityPos.getY(), entityPos.getX(), p.getRef());
-		gameBoard.set(t.getY(), t.getX(), Content.EMPTY.val());
+	public void updateEntityPosition(Entity p, Tile t) {
+		if (p instanceof PacMan) {
+			Tile entityPos = p.getPosition();
+			gameBoard.set(entityPos.getY(), entityPos.getX(), p.getRef());
+			gameBoard.set(t.getY(), t.getX(), Content.EMPTY);
+		}
 	}
-    
-    
+
+	@Override
+	public Collection<Entity> getPersos() {
+		return persos;
+	}
+
+	@Override
+	public String getMap() {
+		return this.map;
+	}
+
+	@Override
+	public void restartModel() {
+		this.remove();
+		this.init(this.map);
+	}
+
 }
