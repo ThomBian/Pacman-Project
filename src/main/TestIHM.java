@@ -7,7 +7,7 @@ import controller.IControleur;
 public class TestIHM {
 	
 	public static void main(String[] args) {		
-		IModele m = new ModeleImpl("cartes/small.map");
+		IModele m = new ModeleImpl("cartes/Djikstra_1.map");
 		IControleur c = new ControllerImpl(m);
 	}
 }

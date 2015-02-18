@@ -5,7 +5,6 @@ package controller;
 
 import java.util.ArrayList;
 
-import model.Content;
 import model.Entity;
 import model.IModele;
 import model.Tile;

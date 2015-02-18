@@ -37,7 +37,7 @@ public interface IModele {
 	public Board getBoard();
 	public Board getInitBoard();
 	public PacMan getPacman();
-	public Collection getPersos();
+	public Collection<Entity> getPersos();
 	public String getMap();
 	/**
 	 * update the model data

@@ -104,7 +104,7 @@ public class ModeleImpl implements IModele {
 	 */
 	@Override
 	public Tile movePacman() {
-		IStratetgy strat = StrategyImpl.RANDOM_PAC;
+		IStratetgy strat = StrategyImpl.COURT_CHEMIN;
 		return strat.move(pacman.getPosition(), gameBoard);
 	}
 

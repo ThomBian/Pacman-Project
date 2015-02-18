@@ -4,12 +4,15 @@
 
 package controller;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 import model.Board;
 import model.Content;
 import model.Direction;
 import model.Tile;
+import Dijkstra.*;
 
 /**
  * @author Nathanael COURET
@@ -23,7 +26,6 @@ public enum StrategyImpl
             Content[] tab = board.getSurrounding(tile.getX(), tile.getY());
             while (true) {
                 int dir = (new Random()).nextInt(4-0)+0;
-                System.out.println(dir);
                 Tile cont = new Tile();
                 switch (dir) {
                     case 0:
@@ -61,7 +63,6 @@ public enum StrategyImpl
             Content[] tab = board.getSurrounding(tile.getX(), tile.getY());
             while (true) {
                 int dir = (new Random()).nextInt(4-0)+0;
-                System.out.println(dir);
                 Tile cont = new Tile();
                 switch (dir) {
                     case 0:
@@ -90,5 +91,20 @@ public enum StrategyImpl
                 if (cont.getContent() != null && cont.getContent() != Content.WALL) { return cont; }
             }
         }
-    }
+    },
+    
+    COURT_CHEMIN{
+        public Tile move(Tile tile, Board board) {
+        	if(board.isGotSuperPacGum()){
+        		//Si le terrain contient une SUPER_PAC_GUM
+        		List<Vertex> vertices = new ArrayList<Vertex>();
+        		Vertex [] obj = board.calculateGraph(vertices);
+        		List<Vertex> chemin = Dijkstra.run(obj[1], obj[0]);
+        		return chemin.get(0).tile;
+        	}
+        	else
+        		//Sinon c'est qu'elles sont toutes mangée donc déplacement aléatoire
+        		return StrategyImpl.RANDOM_PAC.move(tile, board);
+      }
+   }
 }
