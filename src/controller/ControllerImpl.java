@@ -3,6 +3,8 @@
  */
 package controller;
 
+import ihm.MapIndexOutOfBoundsException;
+
 import java.util.ArrayList;
 
 import model.Entity;
@@ -22,13 +24,18 @@ public class ControllerImpl implements IControleur {
 	/**
 	 * @param model
 	 * @param vue
+	 * @throws MapIndexOutOfBoundsException 
 	 */
 	public ControllerImpl(IModele model) {
 		super();
 		this.model = model;
 		this.vue = new Vue(this, model);
 		vue.creerVue();
-		vue.drawMap(this.model.getBoard());
+		try {
+			vue.drawMap(this.model.getBoard());
+		} catch (MapIndexOutOfBoundsException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/* (non-Javadoc)
@@ -47,7 +54,6 @@ public class ControllerImpl implements IControleur {
 		ArrayList<Entity> ps = (ArrayList<Entity>) this.model.getPersos();
 	    for (int i = 0; i < ps.size(); i++) {
 			Entity e = ps.get(i);
-			
 		}
 	}
 
@@ -69,6 +75,10 @@ public class ControllerImpl implements IControleur {
 	@Override
 	public void restart() {
 		this.model.restartModel();
-		this.vue.drawMap(this.model.getBoard());
+		try {
+			this.vue.drawMap(this.model.getBoard());
+		} catch (MapIndexOutOfBoundsException e) {
+			e.printStackTrace();
+		}
 	}
 }

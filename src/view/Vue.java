@@ -42,10 +42,11 @@ public class Vue implements Simulable{
 		this.ihm = ihm;
 	}
 
-	public void drawMap(Board board) {
+	public void drawMap(Board board) throws MapIndexOutOfBoundsException {
 		for (int i = 0; i < board.getHeight(); i++){
 			for (int j = 0; j < board.getWidth(); j++) {
 				Content cur = board.get(i, j);
+				ihm.reset(j, i);
 				drawChar(cur.val(), j, i);
 			}
 		}
