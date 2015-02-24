@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import controller.IStratetgy;
-import controller.StrategyImpl;
+import strategies.IStratetgy;
+import strategies.ShortPathStrategy;
 import errors.ErrorDisplay;
 
 /**
@@ -104,7 +104,7 @@ public class ModeleImpl implements IModele {
 	 */
 	@Override
 	public Tile movePacman() {
-		IStratetgy strat = StrategyImpl.COURT_CHEMIN;
+		IStratetgy strat = new ShortPathStrategy();
 		return strat.move(pacman.getPosition(), gameBoard);
 	}
 
@@ -115,9 +115,8 @@ public class ModeleImpl implements IModele {
 	 */
 	@Override
 	public Tile moveGhost(int idx) {
-		IStratetgy strat = StrategyImpl.RANDOM_GHOST;
-		return strat.move(persos.get(idx).getPosition(), gameBoard);
-		
+		//TODO
+		return null;
 	}
 
 	/*

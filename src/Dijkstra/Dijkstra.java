@@ -62,12 +62,21 @@ public class Dijkstra
      * @param target Cible à atteindre
      * @return Retourne la liste du chemin pour aller de la source à la cible
      */
-    public static List<Vertex> run(Vertex source, Vertex target)
+    public static List<Vertex> run(Vertex source, List<Vertex> target)
     {
-        computePaths(source);
-	    System.out.println("Distance from " + source + " to " + target + ": " + target.minDistance + "cases");
-	    List<Vertex> path = getShortestPathTo(target);
-	    path.remove(0);
+    	List<Vertex> path = null;
+    	int pathLenght = Integer.MAX_VALUE;
+    	Vertex finalTarget = null;
+    	computePaths(source);
+    	for(Vertex v : target){
+	        if(v.minDistance < pathLenght){
+	        	pathLenght = (int) v.minDistance;
+	        	finalTarget = v;
+			    path = getShortestPathTo(v);
+			    path.remove(0);
+	        }
+    	}
+    	System.out.println("Distance from " + source + " to " + finalTarget + ": " + finalTarget.minDistance + "cases");
 	    System.out.println("Path: " + path);
 	    return path;
     }
