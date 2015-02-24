@@ -15,14 +15,23 @@ import Dijkstra.Vertex;
  */
 public class ShortPathStrategy implements IStratetgy {
 	
+	//Chemin à emprunter
+	static List<Vertex> lChemin = new ArrayList<Vertex>();
+	
+		
     public Tile move(Tile tile, Board board) {
 		if(board.hasGotSuperPacGum()){
-    		Vertex source = null;
-    		List<Vertex> lTarget = new ArrayList<Vertex>();
     		//Si le terrain contient une SUPER_PAC_GUM
-    		source = board.calculateGraph(lTarget);
-    		List<Vertex> chemin = Dijkstra.run(source, lTarget);
-    		return chemin.get(0).tile;
+			if(lChemin.isEmpty()){
+				//Si nous avons pas de chemin à suivre
+	    		Vertex source = null;
+	    		List<Vertex> lTarget = new ArrayList<Vertex>();
+	    		source = board.calculateGraph(lTarget);
+	    		lChemin = Dijkstra.run(source, lTarget);
+			}
+    		Tile nextTile = lChemin.get(0).tile;
+    		lChemin.remove(0);
+    		return nextTile;
     	}
     	else{
     		//Sinon c'est qu'elles sont toutes mangée donc déplacement aléatoire
