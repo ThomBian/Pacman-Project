@@ -6,17 +6,39 @@ package model;
 import strategies.IStratetgy;
 
 /**
- * @author couretn
+ * @author Bianchini - Couret - Taboulot - Valette
+ *
+ * represente un personnage du jeu : un pacman ou un fantome
  *
  */
-public abstract class Entity {
-	
-	protected Tile position;
-	protected Content ref;
-	protected IStratetgy strat;
-	
-	public Entity() {
-	}
+public class Entity {
+    /**
+     * case courante du personnage
+     */
+	private Tile position;
+
+    /**
+     * contenu representant le personnage
+     * permet de differencier un pacman d'un fantome
+     */
+	private Content ref;
+
+    /**
+     * strategie de deplacement du personnage
+     */
+	private IStratetgy strat;
+
+    /**
+     * constructeur de personnage
+     * @param position
+     * @param ctn
+     */
+    public Entity (Tile position, Content ctn){
+        this.position = position;
+        this.ref = ctn;
+    }
+
+    /*ACCESSEURS ET MODIFIEURS */
 
 	public Tile getPosition() {
 		return position;
@@ -30,6 +52,20 @@ public abstract class Entity {
 		return ref;
 	}
 	
-	public abstract Tile move(Board gameBoard);
+	public Tile move(Board gameBoard) {
+        assert strat != null;
+        return this.strat.move(position, gameBoard);
+    }
 
+    public void setRef(Content ref) {
+        this.ref = ref;
+    }
+
+    public IStratetgy getStrat() {
+        return strat;
+    }
+
+    public void setStrat(IStratetgy strat) {
+        this.strat = strat;
+    }
 }

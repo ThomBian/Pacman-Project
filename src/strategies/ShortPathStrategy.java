@@ -10,20 +10,34 @@ import Dijkstra.Dijkstra;
 import Dijkstra.Vertex;
 
 /**
- * 
- * @author Clément Taboulot
- *
+ * @author Bianchini - Couret - Taboulot - Valette
+ * strategie du plus court chemin entre une source et une destination
+ * grace a une implémentation de l'algorithme de Djikstra
  */
 public class ShortPathStrategy implements IStratetgy {
 	
-	//Chemin à emprunter
+	/**
+	 * Chemin à emprunter
+	 */
 	private List<Vertex> lChemin = new ArrayList<Vertex>();
-	private Content obj = null;
-	
+
+    /**
+     * contenu a atteindre
+     */
+    private Content obj = null;
+
+    /**
+     * constructeur de strategie
+     * @param c
+     */
 	public ShortPathStrategy(Content c){
 		obj = c;
 	}
-	
+
+    /**
+     * @see strategies.IStratetgy
+     */
+    @Override
     public Tile move(Tile tile, Board board) {	
     	chooseObj(board);
 		if(obj != null){
@@ -45,7 +59,12 @@ public class ShortPathStrategy implements IStratetgy {
     		return rand.move(tile, board);
     	}
     }
-    
+
+    /**
+     * definit les nouveaux objectifs a atteindre
+     * quand il n'y a plus de super pac gomme -> pac gomme -> gagné !
+     * @param board
+     */
     private void chooseObj(Board board){
     	if(obj != null){
 	    	if(!board.hasGotContent(obj)){

@@ -1,15 +1,37 @@
 package main;
-import model.IModele;
-import model.ModeleImpl;
+import model.Content;
+import model.Entity;
+import model.IModel;
+import model.ModelImpl;
 import controller.ControllerImpl;
-import controller.IControleur;
+import controller.IController;
+import strategies.RandomStrategy;
+import strategies.ShortPathStrategy;
 
+import java.util.ArrayList;
+
+
+/**
+ * Simulation du programme avec
+ * PACMAN : Random
+ * GHOSTS : Random
+ * CARTE : petite
+ */
 public class TestIHM {
 	
 	public static void main(String[] args) {		
-		IModele m = new ModeleImpl("cartes/small.map");
-		IControleur c = new ControllerImpl(m);
+		IModel m = new ModelImpl("cartes/Djikstra_1.map");
+
+        m.getPacman().setStrat(new ShortPathStrategy(Content.SUPER_PAC_GUM));
+
+        ArrayList<Entity> persos = (ArrayList<Entity>) m.getGhosts();
+        for (int i = 0; i < persos.size(); ++i)
+            persos.get(i).setStrat(new RandomStrategy());
+
+		IController c = new ControllerImpl(m);
 	}
+
+    //TODO creer differentes classes de tests, Set les strategies des persos dans cette classe.
 }
 
 	

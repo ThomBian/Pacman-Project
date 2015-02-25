@@ -8,9 +8,11 @@ import model.Direction;
 import model.Tile;
 
 /**
- * Classe de déplacement RANDOM
- * @author Clément Taboulot
- *
+ * @author Bianchini - Couret - Taboulot - Valette
+ * strategie de déplacement RANDOM
+ * regarde les cases avoisinantes du personnages Est, Nord, Ouest, Sud
+ * choisit au hasard parmi ces 4 possibilités
+ * on vérifie si ce nest pas un mur et que ce nest pas un fantome
  */
 public class RandomStrategy implements IStratetgy {
 

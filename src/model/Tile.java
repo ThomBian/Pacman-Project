@@ -4,23 +4,37 @@
 package model;
 
 /**
- * @author couretn
+ * @author Bianchini - Couret - Taboulot - Valette
+ *
+ * Represente une case sur le plateau de jeu
  *
  */
 public class Tile {
-	
-	protected Content content;
-	protected int x;
-	protected int y;
+    /**
+     * Contenu de la case
+     * @see model.Content
+     */
+	private Content content;
+
+    /**
+     * coordonnée x de la case : n° de colonne
+     */
+	private int x;
+
+    /**
+     * coordonnée y de la case : n° de ligne
+     */
+	private int y;
 	
 	/**
-	 * 
+	 * Constructeur de case vide (DEFAUT)
 	 */
 	public Tile() {
 		content = Content.EMPTY;
 	}
 	
 	/**
+     * Constructeur de case
 	 * @param content
 	 * @param x
 	 * @param y
@@ -31,7 +45,9 @@ public class Tile {
 		this.x = x;
 		this.y = y;
 	}
-	
+
+    /* ACCESSEURS ET MODIFIEURS */
+
 	public Content getContent() {
 		return content;
 	}
@@ -48,16 +64,10 @@ public class Tile {
 		this.y = y;
 	}
 
-	/**
-	 * @return the x
-	 */
 	public int getX() {
 		return x;
 	}
 
-	/**
-	 * @return the y
-	 */
 	public int getY() {
 		return y;
 	}

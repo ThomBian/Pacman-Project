@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 /**
+ * @authors Bianchini - Couret - Taboulot - Valette
  * Classe de l'algorithme de Djikstra
- * @author Clément Taboulot
  */
 public class Dijkstra
 {

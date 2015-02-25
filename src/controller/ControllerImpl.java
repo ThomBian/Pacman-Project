@@ -8,39 +8,48 @@ import ihm.MapIndexOutOfBoundsException;
 import java.util.ArrayList;
 
 import model.Entity;
-import model.IModele;
+import model.IModel;
 import model.Tile;
-import view.Vue;
+import view.View;
 
 /**
- * @author Thomas
+ * @authors Bianchini - Couret - Taboulot - Valette
+ *
+ * Implementation du controller
  *
  */
-public class ControllerImpl implements IControleur {
-	
-	private IModele model;
-	private Vue vue;
+public class ControllerImpl implements IController {
+
+    /**
+     * Le modele du MVC
+     */
+	private IModel model;
+
+    /**
+     * La vue du MVC
+     */
+	private View view;
 	
 	/**
+     * Construteur de controller
+     * Permet de creer l'IHM et de dessiner la carte initiale
 	 * @param model
-	 * @param vue
-	 * @throws MapIndexOutOfBoundsException 
 	 */
-	public ControllerImpl(IModele model) {
+	public ControllerImpl(IModel model) {
 		super();
 		this.model = model;
-		this.vue = new Vue(this, model);
-		vue.creerVue();
+		this.view = new View(this, model);
+		view.createHCI();
 		try {
-			vue.drawMap(this.model.getBoard());
+			view.drawMap(this.model.getBoard());
 		} catch (MapIndexOutOfBoundsException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see view.IControleur#update()
-	 */
+
+    /**
+     * Mis a jour a la reception d'un next envoyé par la vue
+     */
 	@Override
 	public void update() {
 	    updatePacman();
@@ -48,35 +57,32 @@ public class ControllerImpl implements IControleur {
 	}
 
 	/**
-	 * 
+	 * Mise a jour des fantomes sur l'IHM et dans le modele
 	 */
 	private void updateGhosts() {
-		ArrayList<Entity> ps = (ArrayList<Entity>) this.model.getPersos();
-	    for (int i = 0; i < ps.size(); i++) {
-			Entity e = ps.get(i);
-		}
+		//TODO mouvement des GHOSTS
 	}
 
 	/**
-	 * 
+	 * Mise a jour de Pacman sur l'IHM et dans le modele
 	 */
 	private void updatePacman() {
 		Tile tile = this.model.getPacman().getPosition();
 		Tile newTilePM = this.model.movePacman();
 		this.model.getPacman().setPosition(newTilePM);
-		vue.drawPacMan(newTilePM.getX(), newTilePM.getY());
-		vue.drawSpace(tile.getX(), tile.getY());
+		view.drawPacMan(newTilePM.getX(), newTilePM.getY());
+		view.drawSpace(tile.getX(), tile.getY());
 		this.model.updateEntityPosition(this.model.getPacman(), tile);
 	}
 
-	/* (non-Javadoc)
-	 * @see view.IControleur#restart()
-	 */
+    /**
+     * Remise a zero du modele et de l'IHM
+     */
 	@Override
 	public void restart() {
 		this.model.restartModel();
 		try {
-			this.vue.drawMap(this.model.getBoard());
+			this.view.drawMap(this.model.getBoard());
 		} catch (MapIndexOutOfBoundsException e) {
 			e.printStackTrace();
 		}

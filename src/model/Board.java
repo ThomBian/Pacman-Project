@@ -10,29 +10,51 @@ import Dijkstra.Vertex;
 import Dijkstra.Edge;
 
 /**
- * @author couretn
+ * @author Bianchini - Couret - Taboulot - Valette
+ * object representant un plateau de jeu / simulation
  */
 public class Board {
 
+    /**
+     * hauteur et largeur du plateau
+     */
     private int height, width;
 
+    /**
+     * tableau deux dimensions [hauteur][largeur]
+     */
     private Content[][] board;
 
+    /**
+     * constructeur de plateau
+     * @param height
+     * @param width
+     */
     public Board(int height, int width) {
-
         this.height = height;
         this.width = width;
         board = new Content[height][width];
     }
 
+    /**
+     * affecte un contenu a la colonne et la ligne passees en
+     * parametre
+     * @param row
+     * @param col
+     * @param content
+     */
     public void set(int row, int col, Content content) {
-
         if (row >= height || col >= width) { throw new IllegalArgumentException(); }
         board[row][col] = content;
     }
 
+    /**
+     * recupere le contenu a la colonne et la ligne passees en parametre
+     * @param row
+     * @param col
+     * @return
+     */
     public Content get(int row, int col) {
-
         if (row >= height || col >= width) { throw new IllegalArgumentException(); }
         return board[row][col];
     }
@@ -50,13 +72,12 @@ public class Board {
     }
 
     /**
-     * Calcul les tiles adjacentes à celle passé en paramètre
+     * Calcul les cases adjacentes à celle passee en parametre
      * @param col y de la case de référence
      * @param row x de la case de référence
-     * @return Un tableau de taille 4 correspondant aux contenues des cases adjacentes
+     * @return Un tableau de taille 4 correspondant aux contenus des cases adjacentes
      */
     public Content[] getSurrounding(int col, int row) {
-
         if (row >= height || col >= width) { throw new IllegalArgumentException(); }
         Content[] tab = new Content[4]; // gauche/haut/droite/bas
         tab[Direction.WEST.val()] = col > 0 ? board[row][col - 1] : null;
@@ -68,11 +89,9 @@ public class Board {
     
     /**
      * Calcul du graphe pour l'algorithme de Djkstra
-     * @param vertices Liste correspondant au graphe du board
      * @return target Tableau de taille 2 contenant la position du PACMAN et d'une SUPER_PAC_GUM
      */
     public Vertex calculateGraph(List<Vertex> lTarget, Content obj){
-    	
     	//List = Graph du terrain
 		List<Vertex> vertices = new ArrayList<Vertex>();
 		Vertex source = null;
@@ -135,33 +154,29 @@ public class Board {
     	return source;
     }
 
-    public Content[][] getBoard() {
+    /* ACCESSEURS ET MODIFIEURS */
 
+    public Content[][] getBoard() {
         return board;
     }
 
     public void setBoard(Content[][] board) {
-
         this.board = board;
     }
 
     public int getHeight() {
-
         return height;
     }
 
     public void setHeight(int height) {
-
         this.height = height;
     }
 
     public int getWidth() {
-
         return width;
     }
 
     public void setWidth(int width) {
-
         this.width = width;
     }
 

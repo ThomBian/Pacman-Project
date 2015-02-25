@@ -3,8 +3,8 @@ package Dijkstra;
 import model.Tile;
 
 /**
+ * @authors Bianchini - Couret - Taboulot - Valette
  * Classe correspond à un noeaud d'un graphe
- * @author Clément Taboulot
  */
 public class Vertex implements Comparable<Vertex>
 {
