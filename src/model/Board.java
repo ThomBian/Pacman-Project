@@ -38,13 +38,13 @@ public class Board {
     }
     
     /**
-     * Verifie si le tableau contient une SUPER_PAC_GUM
-     * @return bool true si il en contient une, sinon false
+     * Verifie si le tableau contient un content objectif
+     * @return bool true si il en contient un, sinon false
      */
-    public boolean hasGotSuperPacGum(){
+    public boolean hasGotContent(Content obj){
     	for(int y = 0; y < height; y++)
     		for(int x = 0; x < width; x++)
-    			if(board[y][x].val() == Content.SUPER_PAC_GUM.val())
+    			if(board[y][x].val() == obj.val())
     				return true;
     	return false;
     }
@@ -71,7 +71,7 @@ public class Board {
      * @param vertices Liste correspondant au graphe du board
      * @return target Tableau de taille 2 contenant la position du PACMAN et d'une SUPER_PAC_GUM
      */
-    public Vertex calculateGraph(List<Vertex> lTarget){
+    public Vertex calculateGraph(List<Vertex> lTarget, Content obj){
     	
     	//List = Graph du terrain
 		List<Vertex> vertices = new ArrayList<Vertex>();
@@ -82,7 +82,7 @@ public class Board {
     	for(int y = 0; y < height; y++){
     		for(int x = 0; x < width; x++){
     			vertices.add(new Vertex(new Tile(board[y][x], x,y)));
-    			if(board[y][x].val() == Content.SUPER_PAC_GUM.val())
+    			if(board[y][x].val() == obj.val())
     				lTarget.add(vertices.get(vertices.size()-1));
     			if(board[y][x].val() == Content.PACMAN.val())
     				source = vertices.get(vertices.size()-1);

@@ -71,11 +71,11 @@ public class ModeleImpl implements IModele {
 		for (int i = 0; i < toTreat.length(); ++i) {
 			if (toTreat.charAt(i) == 'P') {
 				Tile tile = new Tile(Content.PACMAN, i, curLine);
-				pacman = new PacMan(tile);
+				pacman = new PacMan(tile, new ShortPathStrategy(Content.SUPER_PAC_GUM));
 			}
 			if (toTreat.charAt(i) == 'F'){
 				Tile tile = new Tile(Content.GHOST, i, curLine);
-				Entity g = new Ghost();
+				Entity g = new Ghost(tile, new ShortPathStrategy(Content.PAC_GUM));
 				g.position = tile;
 				persos.add(g);
 			}
@@ -104,8 +104,7 @@ public class ModeleImpl implements IModele {
 	 */
 	@Override
 	public Tile movePacman() {
-		IStratetgy strat = new ShortPathStrategy();
-		return strat.move(pacman.getPosition(), gameBoard);
+		return pacman.move(gameBoard);
 	}
 
 	/*
@@ -115,8 +114,7 @@ public class ModeleImpl implements IModele {
 	 */
 	@Override
 	public Tile moveGhost(int idx) {
-		//TODO
-		return null;
+		return persos.get(idx).move(gameBoard);
 	}
 
 	/*
