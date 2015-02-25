@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @authors Bianchini - Couret - Taboulot - Valette
  * Pacman : RANDOM
  * Ghosts : RANDOM
- * map : normal
+ * map : djikstra_3
  */
 public class TestRandomAll {
 
