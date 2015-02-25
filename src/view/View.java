@@ -59,7 +59,7 @@ public class View implements Simulable {
      * crée un simulateur et l'associe a la vue
      */
 	public void createHCI(){
-		setHci(new IGSimulateur(this.model.getBoardGameHeight(), this.model.getBoardGameWidth(), this));
+		setHci(new IGSimulateur(this.model.getBoardGameWidth(), this.model.getBoardGameHeight(), this));
 	}
 
     /**
@@ -69,7 +69,7 @@ public class View implements Simulable {
      * @throws MapIndexOutOfBoundsException
      */
 	public void drawMap(Board board) throws MapIndexOutOfBoundsException {
-		for (int i = 0; i < board.getHeight(); i++){
+		for (int i = 0; i < board.getHeight(); i++) {
 			for (int j = 0; j < board.getWidth(); j++) {
 				Content cur = board.get(i, j);
 				hci.reset(j, i);

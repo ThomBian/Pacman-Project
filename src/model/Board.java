@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import Dijkstra.Vertex;
 import Dijkstra.Edge;
+import errors.MapAccessError;
 
 /**
  * @author Bianchini - Couret - Taboulot - Valette
@@ -44,7 +45,7 @@ public class Board {
      * @param content
      */
     public void set(int row, int col, Content content) {
-        if (row >= height || col >= width) { throw new IllegalArgumentException(); }
+        if (row >= height || col >= width) { throw new MapAccessError(row, col, height, width); }
         board[row][col] = content;
     }
 
@@ -55,7 +56,7 @@ public class Board {
      * @return
      */
     public Content get(int row, int col) {
-        if (row >= height || col >= width) { throw new IllegalArgumentException(); }
+        if (row >= height || col >= width) { throw new MapAccessError(row, col, height, width); }
         return board[row][col];
     }
     
