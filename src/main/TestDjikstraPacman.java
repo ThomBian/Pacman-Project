@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * GHOSTS : Random
  * CARTE : petite
  */
-public class TestIHM {
+public class TestDjikstraPacman {
 	
 	public static void main(String[] args) {		
 		IModel m = new ModelImpl("cartes/Djikstra_1.map");

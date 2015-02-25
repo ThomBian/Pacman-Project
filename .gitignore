@@ -9,3 +9,7 @@
 # mac
 .DS_Store
 /bin/
+
+# intellij
+.idea/
+*.iml
