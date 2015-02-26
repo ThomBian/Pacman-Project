@@ -1,6 +1,8 @@
 
 package model;
 
+import strategies.IStratetgy;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -203,11 +205,22 @@ public class ModelImpl implements IModel {
 
     /**
      * @see model.IModel
+     * Les strategies sont sauvegardees avant de detruire le modele
+     * afin de les reaffecter une fois le modele reconstruit
      */
 	@Override
 	public void restartModel() {
+        List<IStratetgy> strategies = new ArrayList<IStratetgy>();
+        strategies.add(0, pacman.getStrat());
+        for (int i = 0; i < ghosts.size(); i++){
+            strategies.add(i+1, ghosts.get(i).getStrat());
+        }
 		this.remove();
 		this.init(this.map);
-	}
+        this.pacman.setStrat(strategies.get(0));
+        for (int i = 0; i < ghosts.size(); i++) {
+            ghosts.get(i).setStrat(strategies.get(i+1));
+        }
+    }
 
 }
