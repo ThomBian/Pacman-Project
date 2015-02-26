@@ -1,0 +1,5 @@
+# Lancer la simulation
+- Ouvrir le projet dans votre IDE favoris
+- Aller dans le package main (dans le dossier src/)
+- Choisir une des classes de tests (chaque classe contient un main et une desciption du comportement attendu)
+- Apprécier le travail
