@@ -15,13 +15,13 @@ public class Entity {
     /**
      * case courante du personnage
      */
-	private Tile position;
+	protected Tile position;
 
     /**
      * contenu representant le personnage
      * permet de differencier un pacman d'un fantome
      */
-	private Content ref;
+	protected Content ref;
 
     /**
      * strategie de deplacement du personnage

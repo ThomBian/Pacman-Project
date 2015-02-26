@@ -6,8 +6,10 @@ package controller;
 import ihm.MapIndexOutOfBoundsException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import model.Entity;
+import model.Ghost;
 import model.IModel;
 import model.Tile;
 import view.View;
@@ -52,15 +54,32 @@ public class ControllerImpl implements IController {
      */
 	@Override
 	public void update() {
-	    updatePacman();
-	    updateGhosts();
+	    try {
+	    	updatePacman();
+			updateGhosts();
+		} catch (MapIndexOutOfBoundsException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * Mise a jour des fantomes sur l'IHM et dans le modele
+	 * @throws MapIndexOutOfBoundsException 
 	 */
-	private void updateGhosts() {
-		//TODO mouvement des GHOSTS
+	private void updateGhosts() throws MapIndexOutOfBoundsException {
+		List<Entity> lGhost = (List<Entity>) this.model.getGhosts();
+		for(int i = 0; i < lGhost.size(); i++){
+			if (lGhost.get(i) instanceof Ghost){
+				Ghost g = (Ghost) lGhost.get(i);
+				Tile tile = g.getPosition();
+				Tile newTilePM = this.model.moveGhost(i);
+				g.setPosition(newTilePM);
+				view.drawGhost(newTilePM.getX(), newTilePM.getY());
+				view.getHci().reset(tile.getX(), tile.getY());
+				view.drawChar(g.getLastContent().val(), tile.getX(), tile.getY());
+				this.model.updateEntityPosition(g, tile);
+			}
+		}
 	}
 
 	/**

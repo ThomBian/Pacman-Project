@@ -13,14 +13,14 @@ import java.util.ArrayList;
 
 /**
  * Simulation du programme avec
- * PACMAN : Random
- * GHOSTS : Random
+ * PACMAN : Dijkstra
+ * GHOSTS : Dikstra
  * CARTE : petite
  */
 public class TestDjikstraPacman {
 	
 	public static void main(String[] args) {		
-		IModel m = new ModelImpl("cartes/Djikstra_1.map");
+		IModel m = new ModelImpl("cartes/normal.map");
 
         m.getPacman().setStrat(new ShortPathStrategy(Content.SUPER_PAC_GUM));
 

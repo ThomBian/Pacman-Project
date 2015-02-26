@@ -101,7 +101,7 @@ public class ModelImpl implements IModel {
 			}
 			if (lineToProcess.charAt(i) == 'F'){
 				Tile tile = new Tile(Content.GHOST, i, curLine);
-				Entity g = new Entity(tile, Content.GHOST);
+				Entity g = new Ghost(tile);
 				ghosts.add(g);
 			}
 			this.gameBoard.set(curLine, i, Content.fromChar(lineToProcess.charAt(i)));
@@ -170,11 +170,19 @@ public class ModelImpl implements IModel {
      */
 	@Override
 	public void updateEntityPosition(Entity p, Tile t) {
-		if (p.getRef().equals(Content.PACMAN)) {
+		if (p instanceof Ghost){
+			Tile entityPos = p.getPosition();
+			gameBoard.set(t.getY(), t.getX(), ((Ghost) p).getLastContent());
+			((Ghost) p).setLastContent(gameBoard.get(entityPos.getY(), entityPos.getX()));
+			gameBoard.set(entityPos.getY(), entityPos.getX(), p.getRef());
+		}
+		else {
 			Tile entityPos = p.getPosition();
 			gameBoard.set(entityPos.getY(), entityPos.getX(), p.getRef());
 			gameBoard.set(t.getY(), t.getX(), Content.EMPTY);
 		}
+		
+		
 	}
 
     /**
