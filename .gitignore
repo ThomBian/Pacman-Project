@@ -13,3 +13,12 @@
 # intellij
 .idea/
 *.iml
+
+# latex
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.gz
+*.toc
+
