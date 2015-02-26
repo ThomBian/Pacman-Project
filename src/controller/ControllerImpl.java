@@ -40,8 +40,8 @@ public class ControllerImpl implements IController {
 	public ControllerImpl(IModel model) {
 		super();
 		this.model = model;
-		this.view = new View(this, model);
-		view.createHCI();
+		this.view = new View(this);
+		view.createHCI(this.model.getBoardGameWidth(), this.model.getBoardGameHeight());
 		try {
 			view.drawMap(this.model.getBoard());
 		} catch (MapIndexOutOfBoundsException e) {

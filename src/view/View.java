@@ -29,11 +29,6 @@ public class View implements Simulable {
      * Controlleur du MVC
      */
 	private IController controller;
-
-    /**
-     * Modele du MVC
-     */
-	private IModel model;
 	
 	@Override
 	public void next() {
@@ -48,18 +43,16 @@ public class View implements Simulable {
     /**
      * Constructeur d'une vue
      * @param controleur
-     * @param model
      */
-	public View(IController controleur, IModel model) {
+	public View(IController controleur) {
 		this.controller = controleur;
-		this.model = model;
 	}
 
     /**
      * crée un simulateur et l'associe a la vue
      */
-	public void createHCI(){
-		setHci(new IGSimulateur(this.model.getBoardGameWidth(), this.model.getBoardGameHeight(), this));
+	public void createHCI(int width, int height){
+		setHci(new IGSimulateur(width, height, this));
 	}
 
     /**

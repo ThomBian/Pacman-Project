@@ -41,7 +41,7 @@ public interface IModel {
     /**
      * mets a jour le tableau a deux dimensions representant le jeu
      * @param e le personnage concerné
-     * @param t la case concernée
+     * @param t la case courante du personnage
      */
     public void updateEntityPosition(Entity e, Tile t);
 
