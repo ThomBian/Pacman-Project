@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class TestDjikstraPacman {
 	
 	public static void main(String[] args) {		
-		IModel m = new ModelImpl("cartes/normal.map");
+		IModel m = new ModelImpl("cartes/small.map");
 
         m.getPacman().setStrat(new ShortPathStrategy(Content.SUPER_PAC_GUM));
 

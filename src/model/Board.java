@@ -96,15 +96,24 @@ public class Board {
     	//List = Graph du terrain
 		List<Vertex> vertices = new ArrayList<Vertex>();
 		Vertex source = null;
+		Content cSource = null;
+		
+		//Détermine le content de la source
+		if(obj == Content.SUPER_PAC_GUM || obj == Content.PAC_GUM)
+			//Si l'obj est un Ghost
+			cSource = Content.PACMAN;
+		else
+			//Sinon c'est qu'il est un Ghost
+			cSource = Content.GHOST;
     	
     	//On remplit la Liste de Vertex
     	//Et on détermine la position de la source du graph et de l'objectif à atteindre
     	for(int y = 0; y < height; y++){
     		for(int x = 0; x < width; x++){
     			vertices.add(new Vertex(new Tile(board[y][x], x,y)));
-    			if(board[y][x].val() == obj.val())
+    			if(board[y][x] == obj)
     				lTarget.add(vertices.get(vertices.size()-1));
-    			if(board[y][x].val() == Content.PACMAN.val())
+    			if(board[y][x] == cSource)
     				source = vertices.get(vertices.size()-1);
     		}
     	}
@@ -180,5 +189,16 @@ public class Board {
     public void setWidth(int width) {
         this.width = width;
     }
+
+	public boolean badNextTile(Tile tile) {
+		Content bad = Content.GHOST;
+			
+		Content[] tContent = getSurrounding(tile.getY(), tile.getX());
+		for(Content c : tContent)
+			if(c == bad)
+				return true;
+		
+		return false;
+	}
 
 }

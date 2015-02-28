@@ -39,7 +39,11 @@ public class ShortPathStrategy implements IStratetgy {
      */
     @Override
     public Tile move(Tile tile, Board board) {	
-    	chooseObj(board);
+    	
+    	if(obj != Content.PACMAN)
+    		//Si je ne suis pas un fantome je chosis mon objectif
+    		chooseObj(board);
+    	
 		if(obj != null){
     		//Si le terrain contient un objectif
 			if(lChemin.isEmpty()){
@@ -50,6 +54,8 @@ public class ShortPathStrategy implements IStratetgy {
 	    		lChemin = Dijkstra.run(source, lTarget);
 			}
     		Tile nextTile = lChemin.get(0).tile;
+    		if(board.badNextTile(nextTile))
+    			return tile;
     		lChemin.remove(0);
     		return nextTile;
     	}
