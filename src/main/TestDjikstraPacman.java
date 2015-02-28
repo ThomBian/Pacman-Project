@@ -14,24 +14,23 @@ import java.util.ArrayList;
 /**
  * Simulation du programme avec
  * PACMAN : Dijkstra
- * GHOSTS : Dikstra
- * CARTE : petite
+ * GHOSTS : Radom
+ * CARTE : Djikstra_1
  */
 public class TestDjikstraPacman {
 	
 	public static void main(String[] args) {		
-		IModel m = new ModelImpl("cartes/small.map");
+		IModel m = new ModelImpl("cartes/Djikstra_1.map");
 
+		
         m.getPacman().setStrat(new ShortPathStrategy(Content.SUPER_PAC_GUM));
-
+        
         ArrayList<Entity> persos = (ArrayList<Entity>) m.getGhosts();
         for (int i = 0; i < persos.size(); ++i)
             persos.get(i).setStrat(new RandomStrategy());
 
 		IController c = new ControllerImpl(m);
 	}
-
-    //TODO creer differentes classes de tests, Set les strategies des persos dans cette classe.
 }
 
 	
