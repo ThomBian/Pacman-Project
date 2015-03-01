@@ -38,6 +38,17 @@ public class Entity {
         this.ref = ctn;
     }
 
+    /**
+     * permet a un personnage de se deplacer
+     * renvoie la nouvelle position du personnage
+     * @param gameBoard
+     * @return
+     */
+    public Tile move(Board gameBoard) {
+        assert strat != null;
+        return this.strat.move(position, gameBoard);
+    }
+
     /*ACCESSEURS ET MODIFIEURS */
 
 	public Tile getPosition() {
@@ -51,11 +62,6 @@ public class Entity {
 	public Content getRef(){
 		return ref;
 	}
-	
-	public Tile move(Board gameBoard) {
-        assert strat != null;
-        return this.strat.move(position, gameBoard);
-    }
 
     public void setRef(Content ref) {
         this.ref = ref;
