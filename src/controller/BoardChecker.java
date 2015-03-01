@@ -15,7 +15,7 @@ import model.Tile;
 
 /**
  * <p>
- * Effectue des vérifications sur une carte de jeu.
+ * Effectue des vÃ©rifications sur une carte de jeu.
  * 
  * @author Nathanael COURET
  */
@@ -32,45 +32,45 @@ public final class BoardChecker {
 
     /**
      * <p>
-     * Vérifie si les cases non-murs de la carte sont connectés. Cela signifie
+     * VÃ©rifie si les cases non-murs de la carte sont connectÃ©s. Cela signifie
      * que toutes les cases non-murs sont accessible par un personnage (pacman
      * ou ghost)
      * 
-     * @return true si les cases non-murs sont connectées, false sinon.
+     * @return true si les cases non-murs sont connectÃ©es, false sinon.
      */
     public boolean isConnected() {
 
         Set<Tile> visited = new HashSet<Tile>();
-        int total = pathableTilesCount(); // on récupère le nombre de cases
+        int total = pathableTilesCount(); // on rÃ©cupÃ¨rere le nombre de cases
                                           // non-mur
-        if (total == 0) { throw new IllegalArgumentException("Carte composée uniquement de murs"); }
+        if (total == 0) { throw new IllegalArgumentException("Carte composï¿½e uniquement de murs"); }
         Tile first = new Tile(board.get(initI, initJ), initI, initJ);
-        checkConnected(visited, first); // on vérifie la connectivité des cases
+        checkConnected(visited, first); // on vÃ©rifie la connectivitÃ© des cases
                                         // non-mur
         return visited.size() == total;
     }
 
     /**
      * <p>
-     * Vérifie récurisvement la connectivité des cases non-murs de la carte.
+     * VÃ©rifie rÃ©curisvement la connectivitÃ© des cases non-murs de la carte.
      * 
      * @param visited
-     *            les cases déjà visités
+     *            les cases dÃ©jÃ  visitÃ©es
      * @param current
      *            la case actuelle
      */
     private void checkConnected(Set<Tile> visited, Tile current) {
 
-        if (!visited.add(current)) { return; } // si cette case est déjà dans le
-                                               // graphe on arrête le calcul
+        if (!visited.add(current)) { return; } // si cette case est dÃ©jÃ  dans le
+                                               // graphe on arrÃªte le calcul
         for (Tile t : getSurroundingTiles(current)) {
-            checkConnected(visited, t); // on vérifie les voisins
+            checkConnected(visited, t); // on vÃ©rifie les voisins
         }
     }
 
     /**
      * <p>
-     * Rcupère un tableau contenant les voisins non-murs de cette case
+     * RÃ©cupÃ©re un tableau contenant les voisins non-murs de cette case
      * 
      * @param t
      *            la case dont on veut les voisins
