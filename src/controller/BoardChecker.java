@@ -29,6 +29,17 @@ public final class BoardChecker {
 
         this.board = board;
     }
+    
+    /**
+     * <p>
+     * Appel static pour vérifier si la carte donnée est connection
+     * @param board la carte à vérifier
+     * @return le résultat de {@link #isConnected()}
+     * @see #isConnected()
+     */
+    public static boolean checkBoardConnected(Board board) {
+        return (new BoardChecker(board)).isConnected();
+    }
 
     /**
      * <p>

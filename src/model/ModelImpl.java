@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import controller.BoardChecker;
+import errors.InvalidMapException;
+
 
 /**
  * @author Bianchini - Couret - Taboulot - Valette
@@ -47,7 +50,7 @@ public class ModelImpl implements IModel {
      * Constructeur du modele
      * @param path
      */
-	public ModelImpl(String path) {
+	public ModelImpl(String path) throws InvalidMapException {
 		this.map = path;
 		init(path);
 	}
@@ -57,12 +60,15 @@ public class ModelImpl implements IModel {
      * @param path
      */
 	@Override
-	public void init(String path) {
+	public void init(String path) throws InvalidMapException {
 		ghosts = new ArrayList<Entity>();
 		try {
 			parse(path);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw InvalidMapException.mapParseException(e);
+		}
+		if(!BoardChecker.checkBoardConnected(gameBoard)) {
+		    throw InvalidMapException.notConnectedPathException;
 		}
     }
 
@@ -214,7 +220,7 @@ public class ModelImpl implements IModel {
      * strategie
      */
 	@Override
-	public void restartModel() {
+	public void restartModel() throws InvalidMapException {
         IStratetgy pStrat = pacman.getStrat();
         IStratetgy gStrat = ghosts.get(0).getStrat();
 		this.remove();

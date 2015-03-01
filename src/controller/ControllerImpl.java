@@ -5,7 +5,6 @@ package controller;
 
 import ihm.MapIndexOutOfBoundsException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import model.Entity;
@@ -13,6 +12,7 @@ import model.Ghost;
 import model.IModel;
 import model.Tile;
 import view.View;
+import errors.InvalidMapException;
 
 /**
  * @authors Bianchini - Couret - Taboulot - Valette
@@ -99,11 +99,14 @@ public class ControllerImpl implements IController {
      */
 	@Override
 	public void restart() {
-		this.model.restartModel();
+		
 		try {
+		    this.model.restartModel();
 			this.view.drawMap(this.model.getBoard());
 		} catch (MapIndexOutOfBoundsException e) {
 			e.printStackTrace();
-		}
+		} catch (InvalidMapException e) {
+            e.printStackTrace();
+        }
 	}
 }

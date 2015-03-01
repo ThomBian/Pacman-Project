@@ -1,4 +1,6 @@
+
 package main;
+
 import model.Content;
 import model.Entity;
 import model.IModel;
@@ -10,27 +12,29 @@ import strategies.ShortPathStrategy;
 
 import java.util.ArrayList;
 
+import errors.InvalidMapException;
 
 /**
- * Simulation du programme avec
- * PACMAN : Dijkstra
- * GHOSTS : Radom
- * CARTE : Djikstra_1
+ * Simulation du programme avec PACMAN : Dijkstra GHOSTS : Radom CARTE :
+ * Djikstra_1
  */
 public class TestDjikstraPacman {
-	
-	public static void main(String[] args) {		
-		IModel m = new ModelImpl("cartes/Djikstra_1.map");
 
-		
-        m.getPacman().setStrat(new ShortPathStrategy(Content.SUPER_PAC_GUM));
-        
-        ArrayList<Entity> persos = (ArrayList<Entity>) m.getGhosts();
-        for (int i = 0; i < persos.size(); ++i)
-            persos.get(i).setStrat(new RandomStrategy());
+    public static void main(String[] args) {
 
-		IController c = new ControllerImpl(m);
-	}
+        try {
+            IModel m = new ModelImpl("cartes/Djikstra_1.map");
+            m.getPacman().setStrat(new ShortPathStrategy(Content.SUPER_PAC_GUM));
+
+            ArrayList<Entity> persos = (ArrayList<Entity>) m.getGhosts();
+            for (int i = 0; i < persos.size(); ++i)
+                persos.get(i).setStrat(new RandomStrategy());
+
+            @SuppressWarnings("unused")
+            IController c = new ControllerImpl(m);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }
-
-	
