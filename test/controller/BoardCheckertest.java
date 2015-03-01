@@ -57,5 +57,12 @@ public class BoardCheckertest {
         checker = new BoardChecker(model.getBoard());
         Assert.assertFalse(checker.isConnected());
     }
+    
+    @Test
+    public void testRemainingGumCount() throws InvalidMapException {
+        model = new ModelImpl("cartes"+File.separatorChar+"small.map");
+        checker = new BoardChecker(model.getBoard());
+        System.out.println(checker.remainingGumsCount());
+    }
 
 }

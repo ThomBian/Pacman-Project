@@ -14,7 +14,7 @@ import model.Tile;
  * choisit au hasard parmi ces 4 possibilités
  * on vérifie si ce nest pas un mur et que ce nest pas un fantome
  */
-public class RandomStrategy implements IStratetgy {
+public class RandomStrategy implements IStrategy {
 
 	public Tile move(Tile tile, Board board) {
         Content[] tab = board.getSurrounding(tile.getX(), tile.getY());
@@ -45,8 +45,7 @@ public class RandomStrategy implements IStratetgy {
                 default:
                     continue;
             }
-            if (cont.getContent() != null && cont.getContent() != Content.WALL &&
-                cont.getContent() != Content.GHOST) { return cont; }
+            if (cont.getContent() != null && cont.getContent() != Content.WALL) { return cont; }
         }
     }
 	

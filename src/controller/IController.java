@@ -1,8 +1,10 @@
 package controller;
 
+import errors.GameEndedInterrupt;
+
 /**
  * @authors Bianchini - Couret - Taboulot - Valette
- * Controlleur dans le modele MVC de notre application
+ * Controller dans le modele MVC de notre application
  * Fait le lien entre la View et le Model
  */
 
@@ -11,7 +13,7 @@ public interface IController {
     /**
      * mis a jour de la vue et du model
      */
-	void update();
+	void update() throws GameEndedInterrupt;
 
     /**
      * remet a zero le modele et la vue

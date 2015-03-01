@@ -3,6 +3,7 @@ package view;
 import java.awt.Color;
 
 import controller.IController;
+import errors.GameEndedInterrupt;
 import model.Board;
 import model.Content;
 import model.IModel;
@@ -32,7 +33,12 @@ public class View implements Simulable {
 	
 	@Override
 	public void next() {
-		controller.update();
+		try {
+            controller.update();
+        } catch (GameEndedInterrupt e) {
+            System.out.println(e.getMessage());
+            restart();
+        }
 	}
 
 	@Override

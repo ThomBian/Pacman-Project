@@ -1,7 +1,7 @@
 
 package model;
 
-import strategies.IStratetgy;
+import strategies.IStrategy;
 import strategies.RandomStrategy;
 import strategies.ShortPathStrategy;
 
@@ -221,8 +221,8 @@ public class ModelImpl implements IModel {
      */
 	@Override
 	public void restartModel() throws InvalidMapException {
-        IStratetgy pStrat = pacman.getStrat();
-        IStratetgy gStrat = ghosts.get(0).getStrat();
+        IStrategy pStrat = pacman.getStrat();
+        IStrategy gStrat = ghosts.get(0).getStrat();
 		this.remove();
 		this.init(this.map);
         pStrat = getiStratetgy(pStrat, Content.SUPER_PAC_GUM);
@@ -245,7 +245,7 @@ public class ModelImpl implements IModel {
      *          contenu pour la strat du plus court chemin
      * @return
      */
-    private IStratetgy getiStratetgy(IStratetgy strat, Content c) {
+    private IStrategy getiStratetgy(IStrategy strat, Content c) {
         if (strat instanceof ShortPathStrategy)
             strat = new ShortPathStrategy(c);
         else if (strat instanceof RandomStrategy)
