@@ -1,1 +1,4 @@
-\subsubsection{Ameliorations possibles}
+\subsubsection{Améliorations possibles}
+
+Cette fonctionnalité n'est pas parfaite et plusieurs amélioration serait possible. Premièrement si Pacman et les Ghosts ont pour statégie le plus court chemin alors le résultat obtenu n'est pas celui souhaité. De plus, il est possible que Pacman se fasse manger par un Ghost. Quand un chemin est calculé Pacman va suivre se chemin, et l'évaluation de la viabilité de la case suivante n'est pas totalement fonctionnelle. Dans certains cas, la case suivante vers laquelle il va se diriger est aussi une case adjacente à un ghost. Et il arrive que Pacman et un Ghost se retrouvent au même endroit. Une méthode badNextTile() est présente pour évaluer cette viabilité mais son fonctionnement n'est pas opérationnel.\\
+Le calcul de plus court chemin entre un point A et un point B fonctionne. Mais un ajout d'intelligence pour faire face à certaines situations pourrait être un axe d'amélioration.

@@ -1,2 +1,13 @@
-\subsubsection{Tests et problemes rencontres}
-blabla
+\subsubsection{Tests et problèmes rencontrés}
+
+Pour pouvoir valider cette fonction de l'application, il fallait qu'elle réponde à 3 critères:
+\begin{itemize}
+	\item Si 2 chemins se présentent à Pacman, il doit prendre le chemin le plus court. Le test utilisant la carte Djikstra2.map valide cette fonctionnalité;
+	\item Si 2 chemins se présentent à Pacman, et que le chemin le plus court contient un obstacle, alors Pacman emprunte un autre chemins. Cette fonctionnalité est validée avec le test utilisant la carte Djikstra3.map;
+	\item Si la carte contient plusieurs SUPER PAC GUM, alors Pacman mange toutes les SUPER PAC GUM en se dirigeant toujours vers celle qui se trouve la plus proche de lui. Cette fonctionnalité est validé par le test contenant la carte Djikstra1.map;
+\end{itemize}
+
+\paragraph{}
+Durant l'implémentation de cette fonctionnalité un problème essentiel ont été rencontré.\\
+Il s'agit de la construction du graphe qui permet à l'algortihme de Djikstra de fonctionner. En effet, il devait représenter fidèlement la carte. Plusieurs itérations ont été nécessaire pour obtenir une fonction opérationnelle. Par la suite, pour améliorer cette fonctionnalité nous avons pris en compte qu'il n'était pas nécessaire de recalculer à chaque déplacement un nouveau graphe et un nouveau plus court chemin. En effet, un nouveau chemin n'est calculé que si Pacman vient de manger une super pacgum.\\
+Lorsque Pacman a mangé toutes les super pacgum, son objectif devient alors les simples pacgum. Et à partir du moment où la carte ne contient plus de pacgum alors Pacman n'a plus de réel objectif. Sa statégie passe donc en aléatoire.
