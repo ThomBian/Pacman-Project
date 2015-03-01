@@ -2,6 +2,8 @@
 package model;
 
 import strategies.IStratetgy;
+import strategies.RandomStrategy;
+import strategies.ShortPathStrategy;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -207,20 +209,44 @@ public class ModelImpl implements IModel {
      * @see model.IModel
      * Les strategies sont sauvegardees avant de detruire le modele
      * afin de les reaffecter une fois le modele reconstruit
+     * on recupere seulement la premiere strategie dans
+     * le tableau de ghosts car tous les ghosts ont la meme
+     * strategie
      */
 	@Override
 	public void restartModel() {
-        List<IStratetgy> strategies = new ArrayList<IStratetgy>();
-        strategies.add(0, pacman.getStrat());
-        for (int i = 0; i < ghosts.size(); i++){
-            strategies.add(i+1, ghosts.get(i).getStrat());
-        }
+        IStratetgy pStrat = pacman.getStrat();
+        IStratetgy gStrat = ghosts.get(0).getStrat();
 		this.remove();
 		this.init(this.map);
-        this.pacman.setStrat(strategies.get(0));
+        pStrat = getiStratetgy(pStrat, Content.SUPER_PAC_GUM);
+        pacman.setStrat(pStrat);
         for (int i = 0; i < ghosts.size(); i++) {
-            ghosts.get(i).setStrat(strategies.get(i+1));
+            ghosts.get(i).setStrat(getiStratetgy(gStrat, Content.PACMAN));
         }
+
+    }
+
+
+    /**
+     * permet de recuperer une nouvelle strategie
+     * en fonction d'une strategie. Utile dans le restart pour
+     * creer une nouvelle instane de strategie pour les positions
+     * calculées soient réinitialisées
+     * @param strat :
+     *               strategie avant restart d'un personnage
+     * @param c :
+     *          contenu pour la strat du plus court chemin
+     * @return
+     */
+    private IStratetgy getiStratetgy(IStratetgy strat, Content c) {
+        if (strat instanceof ShortPathStrategy)
+            strat = new ShortPathStrategy(c);
+        else if (strat instanceof RandomStrategy)
+            strat = new RandomStrategy();
+        else
+            strat = new RandomStrategy();
+        return strat;
     }
 
 }
