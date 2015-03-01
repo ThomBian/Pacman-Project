@@ -14,7 +14,7 @@ import controller.IController;
 /**
  * Simulation du programme avec
  * PACMAN : Dijkstra
- * GHOSTS : Radom
+ * GHOSTS : Random
  * CARTE : Djikstra_3
  */
 
