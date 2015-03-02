@@ -8,7 +8,7 @@ import model.Tile;
  * strategie de deplacement d'un personnage
  */
 
-public interface IStratetgy {
+public interface IStrategy {
 
     /**
      * calcul le deplacement d'un personnage en fonction de sa case courante

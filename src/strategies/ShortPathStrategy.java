@@ -14,7 +14,7 @@ import Dijkstra.Vertex;
  * strategie du plus court chemin entre une source et une destination
  * grace a une implémentation de l'algorithme de Djikstra
  */
-public class ShortPathStrategy implements IStratetgy {
+public class ShortPathStrategy implements IStrategy {
 	
 	/**
 	 * Chemin à emprunter
@@ -35,7 +35,7 @@ public class ShortPathStrategy implements IStratetgy {
 	}
 
     /**
-     * @see strategies.IStratetgy
+     * @see strategies.IStrategy
      */
     @Override
     public Tile move(Tile tile, Board board) {	
@@ -61,7 +61,7 @@ public class ShortPathStrategy implements IStratetgy {
     	}
     	else{
     		//Sinon c'est qu'elles sont toutes mangée donc déplacement aléatoire
-    		IStratetgy rand = new RandomStrategy();
+    		IStrategy rand = new RandomStrategy();
     		return rand.move(tile, board);
     	}
     }

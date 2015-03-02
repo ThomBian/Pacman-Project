@@ -7,6 +7,7 @@ package controller;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.OptionalInt;
 import java.util.Set;
 
 import model.Board;
@@ -23,11 +24,42 @@ public final class BoardChecker {
 
     private Board board;
 
-    private int   initI, initJ;
+    private OptionalInt initI = OptionalInt.empty(), initJ = OptionalInt.empty(),
+                    pathTiles = OptionalInt.empty();
 
     public BoardChecker(Board board) {
 
         this.board = board;
+        if (pathableTilesCount() == 0) { throw new IllegalArgumentException(
+            "Carte composée uniquement de murs"); }
+    }
+
+    /**
+     * <p>
+     * Appel static pour vérifier si la carte donnée est connection
+     * 
+     * @param board
+     *            la carte à vérifier
+     * @return le résultat de {@link #isConnected()}
+     * @see #isConnected()
+     */
+    public static boolean checkBoardConnected(Board board) {
+
+        return (new BoardChecker(board)).isConnected();
+    }
+
+    /**
+     * <p>
+     * Appel statique pour obtenir le nombre de pommes restantes.
+     * 
+     * @param board
+     *            La carte à parcourir
+     * @return le résultat de {@link #remainingGumsCount()}
+     * @see #remainingGumsCount()
+     */
+    public static int remainingGumsCount(Board board) {
+
+        return (new BoardChecker(board)).remainingGumsCount();
     }
 
     /**
@@ -41,13 +73,34 @@ public final class BoardChecker {
     public boolean isConnected() {
 
         Set<Tile> visited = new HashSet<Tile>();
-        int total = pathableTilesCount(); // on récupèrere le nombre de cases
-                                          // non-mur
-        if (total == 0) { throw new IllegalArgumentException("Carte compos�e uniquement de murs"); }
-        Tile first = new Tile(board.get(initI, initJ), initI, initJ);
+        if (pathableTilesCount() == 0) { throw new IllegalStateException(
+            "Carte composée uniquement de murs"); }
+        Tile first = new Tile(board.get(initI(), initJ()), initI(), initJ());
         checkConnected(visited, first); // on vérifie la connectivité des cases
                                         // non-mur
-        return visited.size() == total;
+        return visited.size() == pathableTilesCount();
+    }
+
+    /**
+     * <p>
+     * Récupère le nombre de pommes restantes sur la carte
+     * 
+     * @return Le nombre de pommes restqnte sur la carte
+     */
+    public int remainingGumsCount() {
+
+        if (pathableTilesCount() == 0) { throw new IllegalStateException(
+            "Carte composée uniquement de murs"); }
+        int count = 0;
+        for (int i = 0; i < board.getHeight(); i++) {
+            for (int j = 0; j < board.getWidth(); j++) {
+                if (board.get(i, j).equals(Content.PAC_GUM) ||
+                    board.get(i, j).equals(Content.SUPER_PAC_GUM)) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
     /**
@@ -103,20 +156,58 @@ public final class BoardChecker {
      */
     private int pathableTilesCount() {
 
-        boolean found = false; // tile != wall
-        int count = 0;
-        for (int i = 0; i < board.getHeight(); i++) {
-            for (int j = 0; j < board.getWidth(); j++) {
-                if (!board.get(i, j).equals(Content.WALL)) {
-                    if (!found) {
-                        initI = i;
-                        initJ = j;
-                        found = true;
+        if (!pathTiles.isPresent()) {
+            int count = 0;
+            for (int i = 0; i < board.getHeight(); i++) {
+                for (int j = 0; j < board.getWidth(); j++) {
+                    if (!board.get(i, j).equals(Content.WALL)) {
+                        count++;
                     }
-                    count++;
+                }
+            }
+            pathTiles = OptionalInt.of(count);
+        }
+
+        return pathTiles.getAsInt();
+    }
+
+    /**
+     * La ligne de la première case non mur
+     * 
+     * @return
+     */
+    private int initI() {
+
+        if (!initI.isPresent()) {
+
+            for (int i = 0; i < board.getHeight(); i++) {
+                for (int j = 0; j < board.getWidth(); j++) {
+                    if (!board.get(i, j).equals(Content.WALL)) {
+                        initI = OptionalInt.of(i);
+                    }
                 }
             }
         }
-        return count;
+        return initI.getAsInt();
+    }
+
+    /**
+     * La colonne de la première case non mur
+     * 
+     * @return
+     */
+    private int initJ() {
+
+        if (!initJ.isPresent()) {
+
+            for (int i = 0; i < board.getHeight(); i++) {
+                for (int j = 0; j < board.getWidth(); j++) {
+                    if (!board.get(i, j).equals(Content.WALL)) {
+                        initJ = OptionalInt.of(j);
+                    }
+                }
+            }
+        }
+        return initJ.getAsInt();
     }
 }

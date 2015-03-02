@@ -1,7 +1,7 @@
 
 package model;
 
-import strategies.IStratetgy;
+import strategies.IStrategy;
 import strategies.RandomStrategy;
 import strategies.ShortPathStrategy;
 
@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import controller.BoardChecker;
+import errors.InvalidMapException;
 
 
 /**
@@ -47,7 +50,7 @@ public class ModelImpl implements IModel {
      * Constructeur du modele
      * @param path
      */
-	public ModelImpl(String path) {
+	public ModelImpl(String path) throws InvalidMapException {
 		this.map = path;
 		init(path);
 	}
@@ -57,12 +60,15 @@ public class ModelImpl implements IModel {
      * @param path
      */
 	@Override
-	public void init(String path) {
+	public void init(String path) throws InvalidMapException {
 		ghosts = new ArrayList<Entity>();
 		try {
 			parse(path);
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw InvalidMapException.mapParseException(e);
+		}
+		if(!BoardChecker.checkBoardConnected(gameBoard)) {
+		    throw InvalidMapException.notConnectedPathException;
 		}
     }
 
@@ -214,9 +220,9 @@ public class ModelImpl implements IModel {
      * strategie
      */
 	@Override
-	public void restartModel() {
-        IStratetgy pStrat = pacman.getStrat();
-        IStratetgy gStrat = ghosts.get(0).getStrat();
+	public void restartModel() throws InvalidMapException {
+        IStrategy pStrat = pacman.getStrat();
+        IStrategy gStrat = ghosts.get(0).getStrat();
 		this.remove();
 		this.init(this.map);
         pStrat = getiStratetgy(pStrat, Content.SUPER_PAC_GUM);
@@ -239,7 +245,7 @@ public class ModelImpl implements IModel {
      *          contenu pour la strat du plus court chemin
      * @return
      */
-    private IStratetgy getiStratetgy(IStratetgy strat, Content c) {
+    private IStrategy getiStratetgy(IStrategy strat, Content c) {
         if (strat instanceof ShortPathStrategy)
             strat = new ShortPathStrategy(c);
         else if (strat instanceof RandomStrategy)

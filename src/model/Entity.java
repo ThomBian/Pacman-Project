@@ -3,7 +3,7 @@
  */
 package model;
 
-import strategies.IStratetgy;
+import strategies.IStrategy;
 
 /**
  * @author Bianchini - Couret - Taboulot - Valette
@@ -26,7 +26,7 @@ public class Entity {
     /**
      * strategie de deplacement du personnage
      */
-	private IStratetgy strat;
+	private IStrategy strat;
 
     /**
      * constructeur de personnage
@@ -67,11 +67,11 @@ public class Entity {
         this.ref = ref;
     }
 
-    public IStratetgy getStrat() {
+    public IStrategy getStrat() {
         return strat;
     }
 
-    public void setStrat(IStratetgy strat) {
+    public void setStrat(IStrategy strat) {
         this.strat = strat;
     }
 }

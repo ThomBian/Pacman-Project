@@ -12,6 +12,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import errors.InvalidMapException;
+
 
 public class BoardCheckertest {
     
@@ -43,17 +45,24 @@ public class BoardCheckertest {
     }
 
     @Test
-    public void testIsConnected() {
+    public void testIsConnected() throws InvalidMapException {
         model = new ModelImpl("cartes"+File.separatorChar+"normal.map");
         checker = new BoardChecker(model.getBoard());
         Assert.assertTrue(checker.isConnected());
     }
     
-    @Test
-    public void testIsConnectedProblem() {
+    @Test(expected=InvalidMapException.class)
+    public void testIsConnectedProblem() throws InvalidMapException {
         model = new ModelImpl("cartes"+File.separatorChar+"problem.map");
         checker = new BoardChecker(model.getBoard());
         Assert.assertFalse(checker.isConnected());
+    }
+    
+    @Test
+    public void testRemainingGumCount() throws InvalidMapException {
+        model = new ModelImpl("cartes"+File.separatorChar+"small.map");
+        checker = new BoardChecker(model.getBoard());
+        System.out.println(checker.remainingGumsCount());
     }
 
 }

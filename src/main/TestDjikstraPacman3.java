@@ -1,3 +1,4 @@
+
 package main;
 
 import java.util.ArrayList;
@@ -10,25 +11,29 @@ import strategies.RandomStrategy;
 import strategies.ShortPathStrategy;
 import controller.ControllerImpl;
 import controller.IController;
+import errors.InvalidMapException;
 
 /**
- * Simulation du programme avec
- * PACMAN : Dijkstra
- * GHOSTS : Random
- * CARTE : Djikstra_3
+ * Simulation du programme avec PACMAN : Dijkstra GHOSTS : Random CARTE :
+ * Djikstra_3
  */
 
 public class TestDjikstraPacman3 {
-	public static void main(String[] args) {		
-		IModel m = new ModelImpl("cartes/Djikstra_3.map");
 
-		
-        m.getPacman().setStrat(new ShortPathStrategy(Content.SUPER_PAC_GUM));
-        
-        ArrayList<Entity> persos = (ArrayList<Entity>) m.getGhosts();
-        for (int i = 0; i < persos.size(); ++i)
-            persos.get(i).setStrat(new RandomStrategy());
+    public static void main(String[] args) {
 
-		IController c = new ControllerImpl(m);
-	}
+        try {
+            IModel m = new ModelImpl("cartes/Djikstra_3.map");
+
+            m.getPacman().setStrat(new ShortPathStrategy(Content.SUPER_PAC_GUM));
+
+            ArrayList<Entity> persos = (ArrayList<Entity>) m.getGhosts();
+            for (int i = 0; i < persos.size(); ++i)
+                persos.get(i).setStrat(new RandomStrategy());
+
+            IController c = new ControllerImpl(m);
+        } catch (InvalidMapException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -2,6 +2,8 @@ package model;
 
 import java.util.Collection;
 
+import errors.InvalidMapException;
+
 /**
  * Interface du modele dans le MVC de l'application
  * Stocke les données liées à la carte et à la simulation
@@ -14,7 +16,7 @@ public interface IModel {
 	 * Initialise le modele
 	 * @param map
 	 */
-	public void init(String map);
+	public void init(String map) throws InvalidMapException;
 	
 	
 	/**
@@ -48,7 +50,7 @@ public interface IModel {
     /**
      * reinitialise le modele
      */
-    public void restartModel();
+    public void restartModel() throws InvalidMapException;
 
 	/* ACCESSEURS ET MODIFIEURS */
 	public int getBoardGameHeight();
