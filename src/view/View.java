@@ -1,6 +1,12 @@
 package view;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import javax.swing.JButton;
 
 import controller.IController;
 import errors.GameEndedInterrupt;
@@ -37,7 +43,14 @@ public class View implements Simulable {
             controller.update();
         } catch (GameEndedInterrupt e) {
             System.out.println(e.getMessage());
-            restart();
+            //restart();
+            try {
+                Field pause = hci.getClass().getDeclaredField("playPauseButton");
+                pause.setAccessible(true);
+                ((JButton)pause.get(hci)).doClick();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
         }
 	}
 

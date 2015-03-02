@@ -58,14 +58,19 @@ public class ControllerImpl implements IController {
     public void update() throws GameEndedInterrupt {
 
         try {
-            if(PacmanEaten()) {
-                throw new GameEndedInterrupt(false);
-            } else if(BoardChecker.remainingGumsCount(model.getBoard()) == 0) {
+            if(BoardChecker.remainingGumsCount(model.getBoard()) == 0) {
                 throw new GameEndedInterrupt(true);
+            } else if(PacmanEaten()) {
+                throw new GameEndedInterrupt(false);
             }
             updatePacman();
+//            if(PacmanEaten()) {
+//                throw new GameEndedInterrupt(false);
+//            }
             updateGhosts();
-            
+            if(PacmanEaten()) {
+                throw new GameEndedInterrupt(false);
+            }
             
         } catch (MapIndexOutOfBoundsException e) {
             e.printStackTrace();
