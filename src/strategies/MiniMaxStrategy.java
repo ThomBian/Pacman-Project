@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import model.*;
 
-public class MiniMaxStrategy implements IStratetgy {
+public class MiniMaxStrategy implements IStrategy {
 
 	private final static int PROFONDEUR_MAX = 4;
 
