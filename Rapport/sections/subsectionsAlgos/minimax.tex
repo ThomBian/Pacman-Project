@@ -1,1 +1,24 @@
 \subsection{Minimax}
+
+L'implémentation de l'algorithme MiniMax fut très intéressante.\\
+Elle permit de gagner en connaissance sur ce pilier de l'intelligence artificielle et ses propriétés.\\\\
+
+Un des points forts de cette algorithme est de pouvoir retourner une position à $n$ personnages à chaque appel. C'est-à-dire que le coût sera le même pour déplacer Pacman seul ou bien tous les personnages présents sur la carte.\\\\
+
+Un autre point intéressant est la gestion des paramètres. Ces-derniers sont notamment la profondeur maximale ainsi que les valeurs des fonctions d'évaluation.
+Ainsi bien que des valeurs soient proposées par le sujet, étudier les changements de comportements en fonction des paramètres permit de comprendre les rapports entre les objectifs de chaque personnage (ne pas être mangé, manger une super pacgomme, ...).\\\\
+
+
+Passons maintenant à la justification de l'implémentation.\\
+Pour commencer aucune structure d'arbre n'a été utilisée. En effet les données calculées ne sont pas perstistantes et ne nécessitent donc pas de structure pour les sauvegarder.\\
+L'algorithme est donc une suite d'appels récursifs entre deux fonctions : fonctionMax et fonctionMin. Ces fonctions, simulant respectivement un tour d'un agent Max(PacMan) et d'un agent Min(Ghost). Un tour correspond donc à un appel à fonctionMax pour chaque agentMax et à fonctionMin pour chaque agentMin.\\
+Pendant le déroulement d'un tour un score commun à tous les agents est utilisé. C'est la valeur retournée par fonctionMax et fonctionMin. Le but d'un agent Max est de maximiser ce score, un agent Min cherchera lui à le minimiser.\\
+Les appels se font tant que la profondeur maximale n'est pas atteinte.\\
+Une fois atteinte, les valeurs remontent et les choix de Min et Max se font. La meilleure destination pour chaque agent est choisie à ce moment.\\\\
+
+Deux fonctions getDestinationPacman et getDestinationGhost permettent d'acceder à ces destinations. Si la destination est déjà calculée on appelle Minimax puis on retourne la valeur et on lui affecte null (pour que Minimax soit appelé l'itération suivante).
+Les attributs contenant ces destinations sont statiques afin d'être communs à tous les personnages possédant cette stratégie.\\\\
+
+Bien que l'implementation actuelle ne traite qu'un seul agent Max et qu'un seul agent Min, la généralisation à n peut se faire facilement via l'utilisation de Collection et de simple itérateurs.\\\\
+
+Voilà qui conclus cette étude de MiniMax.
