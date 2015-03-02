@@ -89,7 +89,7 @@ public class Board {
     }
     
     /**
-     * Calcul du graphe pour l'algorithme de Djkstra
+     * Calcul du graphe pour l'algorithme de Dijkstra
      * @return target Tableau de taille 2 contenant la position du PACMAN et d'une SUPER_PAC_GUM
      */
     public Vertex calculateGraph(List<Vertex> lTarget, Content obj){
@@ -186,4 +186,9 @@ public class Board {
 		return false;
 	}
 
+	public Board cloner(){
+		Board b = new Board(height, width);
+		b.board = board.clone();
+		return b;
+	}
 }
